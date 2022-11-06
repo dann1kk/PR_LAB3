@@ -53,19 +53,19 @@ def make_public_lesson(lesson):
 
 # HTTP GET request to get all lessons
 @app.route('/lessons', methods = ['GET'])
-# @auth.login_required
 def get_lessons():
-    print(jsonify({'Lessons' : list(map(make_public_lesson, lessons))}))
+    # print all lessons
+    print(({'Lessons' : list(map(make_public_lesson, lessons))}))
     return jsonify({'Lessons' : list(map(make_public_lesson, lessons))})
 
 # HTTP GET request to get a single lesson
 @app.route('/lessons/<int:id>', methods = ['GET'])
-# @auth.login_required
 def get_lesson(id):
     lesson = list(filter(lambda l: l['id'] == id, lessons))
     if len(lesson) == 0:
         abort(404)
-    print(jsonify({'Lesson' : make_public_lesson(lesson[0])}))
+    # print lesson
+    print(({'Lesson' : make_public_lesson(lesson[0])}))
     return jsonify({'Lesson' : make_public_lesson(lesson[0])})
     
 
@@ -81,6 +81,7 @@ def create_lesson():
         'accredited' : 'false'  
     }
     lessons.append(lesson)
+    # print created lesson
     print(({'Lesson' : make_public_lesson(lesson)}))
     return jsonify({'Lesson' : make_public_lesson(lesson)}), 201
 
@@ -101,7 +102,8 @@ def update_lesson(id):
     lesson[0]['topic'] = request.json.get('topic', lesson[0]['topic'])
     lesson[0]['description'] = request.json.get('description', lesson[0]['description'])
     lesson[0]['accredited'] = request.json.get('accredited', lesson[0]['accredited'])
-    print(jsonify({'lesson' : make_public_lesson(lesson[0])}))
+    # print modified lesson
+    print(({'lesson' : make_public_lesson(lesson[0])}))
     return jsonify({'lesson' : make_public_lesson(lesson[0])})
 
 # HTTP DELETE request to delete a lesson
@@ -111,7 +113,6 @@ def delete_lesson(id):
     if len(lesson) == 0:
         abort(404)
     lessons.remove(lesson[0])
-    print(jsonify({'result' : True}))
     return jsonify({'result' : True})
 
 # an error handler for a bad request 
