@@ -4,44 +4,11 @@ import requests
 import threading
 from contextlib import suppress
 import requests
+from lessons import *
 
 app = Flask(__name__)
 
-# Memory data structure acting as data storage 
-lessons = [
-    {
-        'id' : 1,
-        'topic' : 'Cripthography and Security',
-        'description' : 'Studying ciphers, starting from the classical ones and ending with hash functions and modern criptography.',
-        'accredited' : 'true'
-    },
-    {
-        'id' : 2,
-        'topic' : 'Operating Systems: Internal Mechanisms and Design Principles',
-        'description' : 'Stuff about internal mechanism of a computer and different principles.',
-        'accredited' : 'true'
-    },
-    {
-        'id' : 3,
-        'topic' : 'Network Programming',
-        'description' : 'Learning how to use computer code to write programs or processes that can communicate with other programs or processes across a network.',
-        'accredited' : 'true'
-    },
-    {
-        'id' : 4,
-        'topic' : 'Design Techniques and Mechanisms',
-        'description' : 'Studying patterns and different mechanisms of making code clearer and better.',
-        'accredited' : 'true'
-    },
-    {
-        'id' : 5,
-        'topic' : 'Secure application development',
-        'description' : 'Developing an application, following all the securization steps.',
-        'accredited' : 'true'
-    }
-]
-
-# A helper function that generates a public version of a lesson to send to the client
+# A helper function that generates a public version of a lesson
 def make_public_lesson(lesson):
     new_lesson = {}
     for field in lesson:
